@@ -28,8 +28,9 @@
     "lint:fix": "run-p --aggregate-output --print-label lint:eslint:fix lint:prettier:fix lint:checktypes",
     "lint:prettier:fix": "prettier --ignore-unknown --list-different --write .",
     "lint:prettier": "prettier --ignore-unknown --check .",
-    "lint": "run-p --aggregate-output --print-label lint:eslint lint:prettier lint:checktypes",
+    "lint": "run-p --continue-on-error --aggregate-output --print-label lint:eslint lint:prettier lint:checktypes",
     "----------------RUNNING----------------": "",
+    "dev:watch": "yarn clean && run-p --print-label build:watch compile:watch copy:watch",
     "dev": "nodemon --config bin/nodemon/dev.json",
     "start:clean": "run-s build:clean start",
     "start": "node --experimental-specifier-resolution=node --no-warnings dist/index.js --runAll"

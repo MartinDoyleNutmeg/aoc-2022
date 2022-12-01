@@ -1,10 +1,13 @@
 {
-  "extends": "@sindresorhus/tsconfig/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "ES2020",
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "outDir": "dist",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "target": "ESNext"
   },
+  "extends": "@sindresorhus/tsconfig/tsconfig.json",
   "include": ["src"]
 }

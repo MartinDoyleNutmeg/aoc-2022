@@ -25,6 +25,8 @@
     ],
     "@typescript-eslint/consistent-type-definitions": [2, "interface"],
     "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/padding-line-between-statements": 0,
+    "arrow-body-style": [2, "as-needed"],
     "canonical/destructuring-property-newline": 0,
     "canonical/filename-match-regex": [2, "^[a-z0-9-]+$", true],
     "canonical/import-specifier-newline": 0,

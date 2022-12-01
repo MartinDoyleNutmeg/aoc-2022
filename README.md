@@ -1,7 +1,7 @@
-# Advent of Code 2021
+# Advent of Code 2022
 
-This repo is to store my [Advent of Code](https://adventofcode.com/) submissions, grouped by year.
+This repo is to store my [Advent of Code](https://adventofcode.com/) submissions for 2022.
 
 ## Private leaderboards
 
-- [2021 - Billy Mathews](https://adventofcode.com/2021/leaderboard/private/view/959310)
+- [Nutmeg](https://adventofcode.com/2022/leaderboard/private/view/220417)
