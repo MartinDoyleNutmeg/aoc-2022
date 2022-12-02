@@ -7,8 +7,8 @@
       2,
       "always",
       [
-        "puzzles",
-        "core"
+        "core",
+        "puzzles"
       ]
     ],
     "subject-case": [
@@ -21,6 +21,7 @@
       "always",
       [
         "chore",
+        "docs",
         "feat",
         "fix",
         "refactor",
