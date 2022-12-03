@@ -4,7 +4,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 
-type ReadDataFn = (opts: { importUrl: string; useTestData: boolean }) => string;
+type ReadDataFn = (opts: {
+  importUrl: string;
+  useTestData: boolean;
+}) => string[];
 
 export const readData: ReadDataFn = ({ importUrl, useTestData }) => {
   const sourceFilename = url.fileURLToPath(importUrl);
@@ -16,5 +19,5 @@ export const readData: ReadDataFn = ({ importUrl, useTestData }) => {
   const untypedData = fs.readFileSync(dataPath, 'utf8');
   const data = untypedData as string;
 
-  return data;
+  return data.split('\n');
 };
