@@ -20,7 +20,7 @@
     "----------------CLEANING----------------": "",
     "clean": "del-cli dist/",
     "----------------HOOKS----------------": "",
-    "hook:pre-commit": "yarn lint",
+    "hook:pre-commit": "yarn lint:fix",
     "----------------LINTING----------------": "",
     "lint:checktypes": "tsc --noEmit",
     "lint:eslint:fix": "eslint --fix .",
