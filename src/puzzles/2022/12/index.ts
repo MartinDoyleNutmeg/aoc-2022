@@ -2,12 +2,6 @@ import { logAnswer, readData } from '../../../utils';
 
 import { Position } from './classes';
 
-type ExploreFn = (
-  pos: Position,
-  visitedPath: string[],
-  isPartOne: boolean,
-) => void;
-
 const DATA = readData({
   importUrl: import.meta.url,
   useTestData: false,
@@ -18,6 +12,7 @@ const DATA = readData({
 // console.log({ DATA });
 // console.log(`Total points = ${DATA.length * DATA[0]!.length}`);
 
+// Derive "constants"
 const STARTING_ROW = DATA.findIndex((nextLine) => nextLine.includes('S'));
 const STARTING_COL = DATA[STARTING_ROW]!.indexOf('S');
 const ENDING_ROW = DATA.findIndex((nextLine) => nextLine.includes('E'));
@@ -32,80 +27,59 @@ const GRID = DATA.map((nextLine) => nextLine.split('')).map((nextLine) =>
   ),
 );
 
-const createPos = (row: number, col: number) => new Position(row, col, GRID);
-const validPaths: string[][] = [];
-const shortestJourneys = new Map<string, number>();
+// Populate static vars in the Position class
+Position.GRID = GRID;
+Position.START_COORDS = [STARTING_ROW, STARTING_COL];
+Position.END_COORDS = [ENDING_ROW, ENDING_COL];
+Position.init();
 
-const explore: ExploreFn = (pos, visitedPath, isPartOne) => {
-  const { row, col } = pos;
+// Get shortest
+const getShortestDistance = (isPartOne: boolean): number => {
+  Position.isPartOne = isPartOne;
+  const startingPosition = isPartOne ? Position.START_POS : Position.END_POS;
+  const distances = new Map<string, number>();
+  distances.set(startingPosition.coords, 0);
+  const toVisit: Position[] = [startingPosition];
+  let shortestDistance: number;
 
-  // Check for finished
-  const newPath = [...visitedPath, pos.coords];
-  const finished = isPartOne
-    ? pos.row === ENDING_ROW && pos.col === ENDING_COL
-    : pos.height === 0;
-  if (finished) {
-    validPaths.push(newPath);
-    return;
+  while (toVisit.length > 0) {
+    const nextPos = toVisit.shift()!;
+    const thisDistance = distances.get(nextPos.coords)!;
+    if (nextPos.isFinished) {
+      shortestDistance = thisDistance;
+      break;
+    }
+
+    const { row, col } = nextPos;
+    const neighbours = [
+      new Position(row - 1, col),
+      new Position(row + 1, col),
+      new Position(row, col - 1),
+      new Position(row, col + 1),
+    ];
+    const validNeighbours = neighbours.filter((nextNeighbour) => {
+      const isValid =
+        nextNeighbour.isValid && !distances.has(nextNeighbour.coords);
+      const heightIsOk = isPartOne
+        ? nextNeighbour.height <= nextPos.height + 1
+        : nextNeighbour.height >= nextPos.height - 1;
+      return isValid && heightIsOk;
+    });
+    for (const nextNeighbour of validNeighbours) {
+      toVisit.push(nextNeighbour);
+      distances.set(nextNeighbour.coords, thisDistance + 1);
+    }
   }
 
-  // See if any other path gets here quicker (if so, reject this path)
-  const currentShortest = shortestJourneys.get(pos.coords);
-  if (currentShortest && currentShortest <= newPath.length) {
-    return;
-  }
-  shortestJourneys.set(pos.coords, newPath.length);
-
-  // Keep exploring in each direction
-  const up = createPos(row - 1, col);
-  const down = createPos(row + 1, col);
-  const left = createPos(row, col - 1);
-  const right = createPos(row, col + 1);
-  const nextPositions = [up, down, left, right].filter((nextDir) => {
-    const isValid = nextDir.isValid && !visitedPath.includes(nextDir.coords);
-    const heightIsOk = isPartOne
-      ? nextDir.height <= pos.height + 1
-      : nextDir.height >= pos.height - 1;
-    return isValid && heightIsOk;
-  });
-  for (const nextPos of nextPositions) {
-    explore(nextPos, newPath, isPartOne);
-  }
+  return shortestDistance!;
 };
 
 const runOne = () => {
-  shortestJourneys.clear();
-  explore(createPos(STARTING_ROW, STARTING_COL), [], true);
-  const [shortest] = [...validPaths].sort((a, b) => a.length - b.length);
-
-  // const formattedPaths = sortedPaths.map((nextPath) => {
-  //   const formatted = nextPath.map((nextPos) => {
-  //     const [row, col] = nextPos.split(',').map(Number);
-  //     const nextHeight = GRID[row!]![col!]!;
-  //     const nextValue = String.fromCharCode(nextHeight + 97);
-  //     return `${nextPos} (${nextValue})`;
-  //   });
-  //   return formatted;
-  // });
-  // Log all paths
-  // for (const nextPath of formattedPaths)
-  //   console.log(`Path length=${nextPath.length}:
-  // ${nextPath.join(' → ')}`);
-  // Log shortest path
-  // console.log(`Shortest path length=${formattedPaths[0]!.length}:
-  // ${formattedPaths[0]!.join(' → ')}`);
-
-  // Path includes starting position, so subtract 1
-  logAnswer(1, shortest!.length - 1);
+  logAnswer(1, getShortestDistance(true));
 };
 
 const runTwo = () => {
-  shortestJourneys.clear();
-  explore(createPos(ENDING_ROW, ENDING_COL), [], false);
-  const [shortest] = [...validPaths].sort((a, b) => a.length - b.length);
-
-  // Path includes starting position, so subtract 1
-  logAnswer(2, shortest!.length - 1);
+  logAnswer(2, getShortestDistance(false));
 };
 
 export default async function () {
