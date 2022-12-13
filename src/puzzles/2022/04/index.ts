@@ -14,9 +14,7 @@ const getElfRanges = (elfPair: string): ElfPairRanges =>
   elfPair
     .split(',')
     .flatMap((nextElf) => nextElf.split('-'))
-    .map((rangeLimitStr) =>
-      Number.parseInt(rangeLimitStr, 10),
-    ) as ElfPairRanges;
+    .map((rangeLimitStr) => Number.parseInt(rangeLimitStr, 10)) as ElfPairRanges;
 
 const runOne = () => {
   let numContainingPairs = 0;

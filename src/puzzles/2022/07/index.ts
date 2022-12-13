@@ -62,9 +62,7 @@ const getDirectorySizes = () => {
         }
       } else {
         // Go to new directory
-        currentDir = currentDir.subDirectories.find(
-          ({ name }) => name === dir,
-        )!;
+        currentDir = currentDir.subDirectories.find(({ name }) => name === dir)!;
         parseNextLine();
       }
     } else if ((match = RE_FILE_ENTRY.exec(nextLine))) {
@@ -105,9 +103,7 @@ const runTwo = () => {
   const currentFreeSpace = TOTAL_FILE_SYSTEM_SIZE - rootFolderSize;
   const requiredFreeSpace = Math.abs(MINIMUM_REQUIRED_SIZE - currentFreeSpace);
 
-  const largeEnoughFolders = directorySizes.filter(
-    (size) => size > requiredFreeSpace,
-  );
+  const largeEnoughFolders = directorySizes.filter((size) => size > requiredFreeSpace);
   const smallestFolder = Math.min(...largeEnoughFolders);
 
   logAnswer(2, smallestFolder);

@@ -78,10 +78,7 @@ const runOne = () => {
   for (let cycleIdx = 19; cycleIdx < 220; cycleIdx += 40) {
     signalStrengths.push(valuesPerCycle[cycleIdx]! * (cycleIdx + 1));
   }
-  const signalStrengthsSum = signalStrengths.reduce(
-    (sum, value) => sum + value,
-    0,
-  );
+  const signalStrengthsSum = signalStrengths.reduce((sum, value) => sum + value, 0);
 
   logAnswer(1, signalStrengthsSum);
 };

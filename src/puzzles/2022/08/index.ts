@@ -20,11 +20,7 @@ const ROWS = DATA.filter((line) => line.trim().length > 0).map((line) =>
 );
 const COLS = ROWS[0]!.map((_, colIdx) => ROWS.map((row) => row[colIdx]!));
 
-const getVisibleTreeLocs: GetVisibleTreesFn = ({
-  lineOfTrees,
-  colIdx,
-  rowIdx,
-}) => {
+const getVisibleTreeLocs: GetVisibleTreesFn = ({ lineOfTrees, colIdx, rowIdx }) => {
   const visibleTreeLocs: string[] = [];
   let highestForwardHeight = -1;
   let highestBackwardHeight = -1;
@@ -97,21 +93,13 @@ const runTwo = () => {
           break;
         }
       }
-      for (
-        let rowPointer = rowIdx + 1;
-        rowPointer < ROWS.length;
-        rowPointer++
-      ) {
+      for (let rowPointer = rowIdx + 1; rowPointer < ROWS.length; rowPointer++) {
         down = rowPointer - rowIdx;
         if (thisTree <= ROWS[rowPointer]![colIdx]!) {
           break;
         }
       }
-      for (
-        let colPointer = colIdx + 1;
-        colPointer < COLS.length;
-        colPointer++
-      ) {
+      for (let colPointer = colIdx + 1; colPointer < COLS.length; colPointer++) {
         right = colPointer - colIdx;
         if (thisTree <= ROWS[rowIdx]![colPointer]!) {
           break;

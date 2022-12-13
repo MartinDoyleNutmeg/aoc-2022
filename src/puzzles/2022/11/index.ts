@@ -37,19 +37,14 @@ const parseData: ParseDataFn = (worryReductionFactor) => {
 
   for (let lineIdx = 0; lineIdx < DATA.length; lineIdx += 6) {
     const [, monkeyIdxStr] = RegExps.MONKEY.exec(DATA[lineIdx]!) ?? [];
-    const [, startingItemsStr] =
-      RegExps.STARTING_ITEMS.exec(DATA[lineIdx + 1]!) ?? [];
+    const [, startingItemsStr] = RegExps.STARTING_ITEMS.exec(DATA[lineIdx + 1]!) ?? [];
     const [, operationStr] = RegExps.OPERATION.exec(DATA[lineIdx + 2]!) ?? [];
     const [, testStr] = RegExps.TEST.exec(DATA[lineIdx + 3]!) ?? [];
-    const [, trueMonkeyStr] =
-      RegExps.TRUE_MONKEY.exec(DATA[lineIdx + 4]!) ?? [];
-    const [, falseMonkeyStr] =
-      RegExps.FALSE_MONKEY.exec(DATA[lineIdx + 5]!) ?? [];
+    const [, trueMonkeyStr] = RegExps.TRUE_MONKEY.exec(DATA[lineIdx + 4]!) ?? [];
+    const [, falseMonkeyStr] = RegExps.FALSE_MONKEY.exec(DATA[lineIdx + 5]!) ?? [];
 
     const monkeyIdx = Number(monkeyIdxStr);
-    const startingItems = startingItemsStr!
-      .split(', ')
-      .map((nextItem) => Number(nextItem));
+    const startingItems = startingItemsStr!.split(', ').map((nextItem) => Number(nextItem));
     let operation: Operation;
     if (operationStr === '* old') {
       operation = new Operation('**', 2);
@@ -61,10 +56,7 @@ const parseData: ParseDataFn = (worryReductionFactor) => {
       throw new Error(`Unknown operation in "${operationStr}"`);
     }
     const testDivisor = Number(testStr);
-    const [trueMonkey, falseMonkey] = [
-      Number(trueMonkeyStr),
-      Number(falseMonkeyStr),
-    ];
+    const [trueMonkey, falseMonkey] = [Number(trueMonkeyStr), Number(falseMonkeyStr)];
 
     // In order to keep worry levels manageable (i.e. to not hit infinity), we need to find the lowest common multiple of all the test divisors. This will enable us to use that as the modulo for all the monkeys' items while still preserving the test logic.
     modulo *= testDivisor;
@@ -100,11 +92,7 @@ const calculateLevelOfMonkeyBusiness: CalculateLevelOfMonkeyBusinessFn = (
     for (const nextMonkey of monkeys) {
       const throwRecipients = nextMonkey.inspectAndThrow(modulo);
       // eslint-disable-next-line unicorn/no-for-loop
-      for (
-        let recipientIdx = 0;
-        recipientIdx < throwRecipients.length;
-        recipientIdx++
-      ) {
+      for (let recipientIdx = 0; recipientIdx < throwRecipients.length; recipientIdx++) {
         const items = throwRecipients[recipientIdx];
         if (items !== undefined) {
           for (const item of items) {
@@ -119,13 +107,8 @@ const calculateLevelOfMonkeyBusiness: CalculateLevelOfMonkeyBusinessFn = (
   }
 
   const inspectionCounts = monkeys.map((monkey) => monkey.inspections);
-  const highestInspectionCounts = inspectionCounts
-    .sort((a, b) => b - a)
-    .slice(0, 2);
-  const levelOfMonkeyBusiness = highestInspectionCounts.reduce(
-    (acc, next) => acc * next,
-    1,
-  );
+  const highestInspectionCounts = inspectionCounts.sort((a, b) => b - a).slice(0, 2);
+  const levelOfMonkeyBusiness = highestInspectionCounts.reduce((acc, next) => acc * next, 1);
 
   // console.log({
   //   highestInspectionCounts,
@@ -137,22 +120,14 @@ const calculateLevelOfMonkeyBusiness: CalculateLevelOfMonkeyBusinessFn = (
 
 const runOne = () => {
   const { monkeys, modulo } = parseData(3);
-  const levelOfMonkeyBusiness = calculateLevelOfMonkeyBusiness(
-    monkeys,
-    20,
-    modulo,
-  );
+  const levelOfMonkeyBusiness = calculateLevelOfMonkeyBusiness(monkeys, 20, modulo);
 
   logAnswer(1, levelOfMonkeyBusiness);
 };
 
 const runTwo = () => {
   const { monkeys, modulo } = parseData(1);
-  const levelOfMonkeyBusiness = calculateLevelOfMonkeyBusiness(
-    monkeys,
-    10_000,
-    modulo,
-  );
+  const levelOfMonkeyBusiness = calculateLevelOfMonkeyBusiness(monkeys, 10_000, modulo);
 
   logAnswer(2, levelOfMonkeyBusiness);
 };

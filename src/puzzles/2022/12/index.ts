@@ -19,11 +19,7 @@ const ENDING_ROW = DATA.findIndex((nextLine) => nextLine.includes('E'));
 const ENDING_COL = DATA[ENDING_ROW]!.indexOf('E');
 const GRID = DATA.map((nextLine) => nextLine.split('')).map((nextLine) =>
   nextLine.map((nextHeight) =>
-    nextHeight === 'S'
-      ? 0
-      : nextHeight === 'E'
-      ? 25
-      : nextHeight.charCodeAt(0) - 97,
+    nextHeight === 'S' ? 0 : nextHeight === 'E' ? 25 : nextHeight.charCodeAt(0) - 97,
   ),
 );
 
@@ -58,8 +54,7 @@ const getShortestDistance = (isPartOne: boolean): number => {
       new Position(row, col + 1),
     ];
     const validNeighbours = neighbours.filter((nextNeighbour) => {
-      const isValid =
-        nextNeighbour.isValid && !distances.has(nextNeighbour.coords);
+      const isValid = nextNeighbour.isValid && !distances.has(nextNeighbour.coords);
       const heightIsOk = isPartOne
         ? nextNeighbour.height <= nextPos.height + 1
         : nextNeighbour.height >= nextPos.height - 1;

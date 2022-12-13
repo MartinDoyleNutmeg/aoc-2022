@@ -2,11 +2,7 @@ import { logAnswer, readData } from '../../../utils';
 
 import { Position } from './classes-old';
 
-type ExploreFn = (
-  pos: Position,
-  visitedPath: string[],
-  isPartOne: boolean,
-) => void;
+type ExploreFn = (pos: Position, visitedPath: string[], isPartOne: boolean) => void;
 
 const DATA = readData({
   importUrl: import.meta.url,
@@ -24,11 +20,7 @@ const ENDING_ROW = DATA.findIndex((nextLine) => nextLine.includes('E'));
 const ENDING_COL = DATA[ENDING_ROW]!.indexOf('E');
 const GRID = DATA.map((nextLine) => nextLine.split('')).map((nextLine) =>
   nextLine.map((nextHeight) =>
-    nextHeight === 'S'
-      ? 0
-      : nextHeight === 'E'
-      ? 25
-      : nextHeight.charCodeAt(0) - 97,
+    nextHeight === 'S' ? 0 : nextHeight === 'E' ? 25 : nextHeight.charCodeAt(0) - 97,
   ),
 );
 
@@ -41,9 +33,7 @@ const explore: ExploreFn = (pos, visitedPath, isPartOne) => {
 
   // Check for finished
   const newPath = [...visitedPath, pos.coords];
-  const finished = isPartOne
-    ? pos.row === ENDING_ROW && pos.col === ENDING_COL
-    : pos.height === 0;
+  const finished = isPartOne ? pos.row === ENDING_ROW && pos.col === ENDING_COL : pos.height === 0;
   if (finished) {
     validPaths.push(newPath);
     return;

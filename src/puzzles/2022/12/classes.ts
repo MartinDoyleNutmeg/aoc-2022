@@ -23,12 +23,7 @@ export class Position {
     this.row = row;
     this.col = col;
 
-    if (
-      row < 0 ||
-      row >= Position.GRID.length ||
-      col < 0 ||
-      col >= Position.GRID[0]!.length
-    ) {
+    if (row < 0 || row >= Position.GRID.length || col < 0 || col >= Position.GRID[0]!.length) {
       this.isValid = false;
       this.height = 0;
     } else {

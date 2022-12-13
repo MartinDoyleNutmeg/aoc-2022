@@ -25,11 +25,7 @@ export const logAnswer = (part: PartNumber, answer: unknown) => {
     answerText = `Answer is ${answer}`;
   }
 
-  const messageParts = [
-    chalk.bold.cyan(partText),
-    '➡️ ',
-    chalk.bold.yellow(answerText),
-  ];
+  const messageParts = [chalk.bold.cyan(partText), '➡️ ', chalk.bold.yellow(answerText)];
   console.info(messageParts.join(' '));
 };
 

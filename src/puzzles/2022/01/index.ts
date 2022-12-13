@@ -46,9 +46,7 @@ const runTwo = () => {
   const caloriesByElf = getCaloriesByElf();
   // Sort in reverse order
   const sortedCalories = caloriesByElf.sort((a, b) => b - a);
-  const topThreeCalories = sortedCalories
-    .slice(0, 3)
-    .reduce((prev, next) => prev + next, 0);
+  const topThreeCalories = sortedCalories.slice(0, 3).reduce((prev, next) => prev + next, 0);
 
   logAnswer(2, topThreeCalories);
 };

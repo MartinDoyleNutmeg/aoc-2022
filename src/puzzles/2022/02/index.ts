@@ -27,12 +27,7 @@ const untypedData = fs.readFileSync(DATA_PATH, 'utf8');
 const data = untypedData as string;
 
 const getScoreV1 = (theirChoice: THEIRS, myChoice: MINE): number => {
-  let score =
-    myChoice === 'X'
-      ? Scores.ROCK
-      : myChoice === 'Y'
-      ? Scores.PAPER
-      : Scores.SCISSORS;
+  let score = myChoice === 'X' ? Scores.ROCK : myChoice === 'Y' ? Scores.PAPER : Scores.SCISSORS;
   switch (myChoice) {
     // Rock
     case 'X':

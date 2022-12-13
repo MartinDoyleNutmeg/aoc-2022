@@ -35,10 +35,7 @@ const moveLeadingKnot = (loc: Location, dir: Direction): Location => {
   return leadingKnot;
 };
 
-const getNewTrailingKnotLoc = (
-  leadingKnot: Location,
-  trailingKnot: Location,
-): Location => {
+const getNewTrailingKnotLoc = (leadingKnot: Location, trailingKnot: Location): Location => {
   const firstKnot = [...leadingKnot] as Location;
   const secondKnot = [...trailingKnot] as Location;
   const [firstX, firstY] = [...firstKnot];
@@ -97,12 +94,9 @@ const getNewTrailingKnotLoc = (
 
 const getTailLocs = (numKnots: number) => {
   const tailLocs = new Set<string>();
-  const addTailKnotLoc = (newTailLoc: Location) =>
-    tailLocs.add(newTailLoc.join(','));
+  const addTailKnotLoc = (newTailLoc: Location) => tailLocs.add(newTailLoc.join(','));
 
-  const allKnots: Location[] = Array.from<Location>({ length: numKnots }).fill([
-    0, 0,
-  ]);
+  const allKnots: Location[] = Array.from<Location>({ length: numKnots }).fill([0, 0]);
 
   for (const nextInstruction of DATA) {
     // Parse instruction
@@ -115,10 +109,7 @@ const getTailLocs = (numKnots: number) => {
       allKnots[0] = moveLeadingKnot(allKnots[0]!, dir);
       // Repeat for each trailing knot in the rope
       for (let knotIdx = 1; knotIdx < numKnots; knotIdx++) {
-        allKnots[knotIdx] = getNewTrailingKnotLoc(
-          allKnots[knotIdx - 1]!,
-          allKnots[knotIdx]!,
-        );
+        allKnots[knotIdx] = getNewTrailingKnotLoc(allKnots[knotIdx - 1]!, allKnots[knotIdx]!);
       }
       addTailKnotLoc(allKnots[numKnots - 1]!);
     }

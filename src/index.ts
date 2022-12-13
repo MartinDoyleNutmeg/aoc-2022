@@ -2,13 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
-import {
-  logComplete,
-  logError,
-  logPuzzleDay,
-  logStart,
-  logTime,
-} from './utils';
+import { logComplete, logError, logPuzzleDay, logStart, logTime } from './utils';
 
 const HERE = path.dirname(import.meta.url).slice('file:'.length);
 const RELATIVE_PATH_REGEX = /(\d{4})\/(\d{2})$/u;
@@ -25,17 +19,13 @@ const run = async () => {
 
   // Get years
   const puzzlesPath = path.join(HERE, 'puzzles');
-  const yearFolders = (await fs.readdir(puzzlesPath)).sort(
-    sortStringsNumerically,
-  );
+  const yearFolders = (await fs.readdir(puzzlesPath)).sort(sortStringsNumerically);
 
   // Get paths to all puzzles for each year
   const allPuzzlePaths = [];
   for (const nextYear of yearFolders) {
     const nextYearPath = path.join(puzzlesPath, nextYear);
-    const puzzleDays = (await fs.readdir(nextYearPath)).sort(
-      sortStringsNumerically,
-    );
+    const puzzleDays = (await fs.readdir(nextYearPath)).sort(sortStringsNumerically);
     for (const nextDay of puzzleDays) {
       const nextDayPath = path.join(nextYearPath, nextDay);
       allPuzzlePaths.push(nextDayPath);
