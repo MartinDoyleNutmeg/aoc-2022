@@ -41,7 +41,9 @@
         "newlines-between": "always"
       }
     ],
+    "line-comment-position": 0,
     "no-console": 0,
+    "no-inline-comments": 0,
     "unicorn/no-unsafe-regex": 0,
     "unicorn/prefer-node-protocol": 0, // Clashes with "import/order"
     "unicorn/prevent-abbreviations": 0
