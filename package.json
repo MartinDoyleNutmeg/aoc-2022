@@ -8,7 +8,7 @@
     "build:clean": "run-s clean build",
     "build:watch:clean": "run-s clean build:watch",
     "build:watch": "run-p copy:watch compile:watch",
-    "build": "run-p copy build",
+    "build": "run-p copy compile",
     "compile:watch": "tsc --watch",
     "compile": "tsc",
     "copy:clean": "run-s clean copy",
