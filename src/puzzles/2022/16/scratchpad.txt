@@ -1,0 +1,27 @@
+You move to valve DD.
+<!-- You open valve DD. -->
+You move to valve CC.
+You move to valve BB.
+<!-- You open valve BB. -->
+You move to valve AA.
+You move to valve II.
+You move to valve JJ.
+<!-- You open valve JJ. -->
+You move to valve II.
+You move to valve AA.
+You move to valve DD.
+You move to valve EE.
+You move to valve FF.
+You move to valve GG.
+You move to valve HH.
+<!-- You open valve HH. -->
+You move to valve GG.
+You move to valve FF.
+You move to valve EE.
+<!-- You open valve EE. -->
+You move to valve DD.
+You move to valve CC.
+<!-- You open valve CC. -->
+
+
+AA->CC->BB->AA->II->JJ->II->AA->DD->EE->FF->GG->HH->GG->FF->EE->DD->CC
